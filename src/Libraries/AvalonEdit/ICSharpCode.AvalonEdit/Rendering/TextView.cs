@@ -246,9 +246,51 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			OnOptionChanged(new PropertyChangedEventArgs(null));
 		}
 		#endregion
+
+		#region Line Height Properties
+		/// <summary>
+		/// Minimum line height, in WPF Pixel units
+		/// </summary>
+		public static readonly DependencyProperty MinLineHeightProperty =
+			DependencyProperty.Register("MinLineHeight", typeof(double?), typeof(TextView),
+						    new FrameworkPropertyMetadata(OnLineHeightChanged));
 		
-		#region ElementGenerators+LineTransformers Properties
-		readonly ObserveAddRemoveCollection<VisualLineElementGenerator> elementGenerators;
+		/// <summary>
+		/// Minimum line height, in WPF Pixel units
+		/// </summary>
+		public static readonly DependencyProperty MaxLineHeightProperty =
+			DependencyProperty.Register("MaxLineHeight", typeof(double?), typeof(TextView),
+						    new FrameworkPropertyMetadata(OnLineHeightChanged));
+
+		/// <summary>
+		/// Gets/Sets the options used by the text editor.
+		/// </summary>
+		public double? MinLineHeight {
+			get { return (double?)GetValue(MinLineHeightProperty); }
+			set { SetValue(MinLineHeightProperty, value); }
+		}
+		
+		/// <summary>
+		/// Gets/Sets the options used by the text editor.
+		/// </summary>
+		public double? MaxLineHeight {
+			get { return (double?)GetValue(MaxLineHeightProperty); }
+			set { SetValue(MaxLineHeightProperty, value); }
+		}
+
+		static void OnLineHeightChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
+		{
+			((TextView)dp).OnLineHeightChanged((double)e.OldValue, (double)e.NewValue, e.Property == MaxLineHeightProperty);
+		}
+		
+		void OnLineHeightChanged(double? oldValue, double? newValue, bool minOrMaxProperty)
+		{
+			Redraw();
+		}
+		#endregion
+
+        	#region ElementGenerators+LineTransformers Properties
+        	readonly ObserveAddRemoveCollection<VisualLineElementGenerator> elementGenerators;
 		
 		/// <summary>
 		/// Gets a collection where element generators can be registered.
