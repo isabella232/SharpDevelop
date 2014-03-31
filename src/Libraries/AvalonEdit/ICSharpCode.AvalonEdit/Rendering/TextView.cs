@@ -249,41 +249,26 @@ namespace ICSharpCode.AvalonEdit.Rendering
 
 		#region Line Height Properties
 		/// <summary>
-		/// Minimum line height, in WPF Pixel units
+		/// Padding around lines, in WPF Pixel units
 		/// </summary>
-		public static readonly DependencyProperty MinLineHeightProperty =
-			DependencyProperty.Register("MinLineHeight", typeof(double?), typeof(TextView),
-						    new FrameworkPropertyMetadata(OnLineHeightChanged));
-		
-		/// <summary>
-		/// Minimum line height, in WPF Pixel units
-		/// </summary>
-		public static readonly DependencyProperty MaxLineHeightProperty =
-			DependencyProperty.Register("MaxLineHeight", typeof(double?), typeof(TextView),
-						    new FrameworkPropertyMetadata(OnLineHeightChanged));
+		public static readonly DependencyProperty ExtraLineHeightProperty =
+			DependencyProperty.Register("ExtraLineHeight", typeof(double), typeof(TextView),
+						    new FrameworkPropertyMetadata(OnExtraLineHeightChanged));
 
 		/// <summary>
 		/// Gets/Sets the options used by the text editor.
 		/// </summary>
-		public double? MinLineHeight {
-			get { return (double?)GetValue(MinLineHeightProperty); }
-			set { SetValue(MinLineHeightProperty, value); }
-		}
-		
-		/// <summary>
-		/// Gets/Sets the options used by the text editor.
-		/// </summary>
-		public double? MaxLineHeight {
-			get { return (double?)GetValue(MaxLineHeightProperty); }
-			set { SetValue(MaxLineHeightProperty, value); }
+		public double ExtraLineHeight {
+			get { return (double)GetValue(ExtraLineHeightProperty); }
+			set { SetValue(ExtraLineHeightProperty, value); }
 		}
 
-		static void OnLineHeightChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
+		static void OnExtraLineHeightChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
 		{
-			((TextView)dp).OnLineHeightChanged((double)e.OldValue, (double)e.NewValue, e.Property == MaxLineHeightProperty);
+			((TextView)dp).OnExtraLineHeightChanged((double)e.OldValue, (double)e.NewValue);
 		}
 		
-		void OnLineHeightChanged(double? oldValue, double? newValue, bool minOrMaxProperty)
+		void OnExtraLineHeightChanged(double oldValue, double newValue)
 		{
 			Redraw();
 		}

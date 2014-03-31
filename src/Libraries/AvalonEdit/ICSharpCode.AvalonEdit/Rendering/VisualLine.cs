@@ -283,11 +283,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			foreach (TextLine line in textLines)
 				Height += line.Height;
 
-			if (textView.MinLineHeight.HasValue)
-				Height = Math.Min(Height, textView.MinLineHeight.Value);
-
-			if (textView.MaxLineHeight.HasValue)
-				Height = Math.Max(Height, textView.MaxLineHeight.Value);
+			Height += textView.ExtraLineHeight;
 		}
 		
 		/// <summary>
