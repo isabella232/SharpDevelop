@@ -186,7 +186,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			if (formattedText != null) {
 				return new TextEmbeddedObjectMetrics(Math.Ceiling(formattedText.WidthIncludingTrailingWhitespace),
 				                                     Math.Ceiling(formattedText.Height),
-				                                     Math.Ceiling(formattedText.Baseline));
+				                                     formattedText.Baseline);
 			} else {
 				var text = element.textLine;
 				return new TextEmbeddedObjectMetrics(Math.Ceiling(text.WidthIncludingTrailingWhitespace),
