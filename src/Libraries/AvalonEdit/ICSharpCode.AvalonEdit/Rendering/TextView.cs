@@ -1002,8 +1002,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				yPos += visualLine.Height;
 				
 				foreach (TextLine textLine in visualLine.TextLines) {
-					if (textLine.WidthIncludingTrailingWhitespace > maxWidth)
-						maxWidth = textLine.WidthIncludingTrailingWhitespace;
+					if (Math.Ceiling(textLine.WidthIncludingTrailingWhitespace) > maxWidth)
+						maxWidth = Math.Ceiling(textLine.WidthIncludingTrailingWhitespace);
 				}
 				
 				newVisualLines.Add(visualLine);
@@ -1554,7 +1554,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 					null))
 				{
 					wideSpaceWidth = Math.Ceiling(Math.Max(1, line.WidthIncludingTrailingWhitespace));
-					defaultBaseline = Math.Ceiling(Math.Max(1, line.Baseline));
+					defaultBaseline = Math.Max(1, line.Baseline);
 					defaultLineHeight = Math.Ceiling(Math.Max(1, line.Height));
 				}
 			} else {

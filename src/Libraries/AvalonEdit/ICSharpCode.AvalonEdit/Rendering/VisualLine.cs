@@ -357,7 +357,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			foreach (TextLine tl in TextLines) {
                 var lineHeight = Math.Ceiling(tl.Height);
 				if (tl == textLine) {
-                    var baseline = Math.Ceiling(tl.Baseline);
+                    var baseline = tl.Baseline;
 					switch (yPositionMode) {
 						case VisualYPosition.LineTop:
 							return pos;

@@ -191,7 +191,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				var text = element.textLine;
 				return new TextEmbeddedObjectMetrics(Math.Ceiling(text.WidthIncludingTrailingWhitespace),
 				                                     Math.Ceiling(text.Height),
-				                                     Math.Ceiling(text.Baseline));
+				                                     text.Baseline);
 			}
 		}
 		
