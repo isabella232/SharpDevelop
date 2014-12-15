@@ -1198,7 +1198,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 							}
 							offset += span.Length;
 						}
-						pos.Y += textLine.Height;
+						pos.Y += Math.Ceiling(textLine.Height);
 					}
 				}
 			}

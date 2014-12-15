@@ -184,14 +184,14 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		{
 			var formattedText = element.formattedText;
 			if (formattedText != null) {
-				return new TextEmbeddedObjectMetrics(formattedText.WidthIncludingTrailingWhitespace,
-				                                     formattedText.Height,
-				                                     formattedText.Baseline);
+				return new TextEmbeddedObjectMetrics(Math.Ceiling(formattedText.WidthIncludingTrailingWhitespace),
+				                                     Math.Ceiling(formattedText.Height),
+				                                     Math.Ceiling(formattedText.Baseline));
 			} else {
 				var text = element.textLine;
-				return new TextEmbeddedObjectMetrics(text.WidthIncludingTrailingWhitespace,
-				                                     text.Height,
-				                                     text.Baseline);
+				return new TextEmbeddedObjectMetrics(Math.Ceiling(text.WidthIncludingTrailingWhitespace),
+				                                     Math.Ceiling(text.Height),
+				                                     Math.Ceiling(text.Baseline));
 			}
 		}
 		

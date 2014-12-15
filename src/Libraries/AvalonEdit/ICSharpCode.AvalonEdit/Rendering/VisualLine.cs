@@ -281,7 +281,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			this.textLines = textLines.AsReadOnly();
 			Height = 0;
 			foreach (TextLine line in textLines)
-				Height += line.Height;
+				Height += Math.Ceiling(line.Height);
 		}
 		
 		/// <summary>
@@ -355,27 +355,30 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				throw new ArgumentNullException("textLine");
 			double pos = VisualTop;
 			foreach (TextLine tl in TextLines) {
+                var lineHeight = Math.Ceiling(tl.Height);
 				if (tl == textLine) {
+                    var baseline = Math.Ceiling(tl.Baseline);
 					switch (yPositionMode) {
 						case VisualYPosition.LineTop:
 							return pos;
 						case VisualYPosition.LineMiddle:
-							return pos + tl.Height / 2;
+							return pos + lineHeight / 2;
 						case VisualYPosition.LineBottom:
-							return pos + tl.Height;
+							return pos + lineHeight;
 						case VisualYPosition.TextTop:
-							return pos + tl.Baseline - textView.DefaultBaseline;
+							return pos + baseline - textView.DefaultBaseline;
 						case VisualYPosition.TextBottom:
-							return pos + tl.Baseline - textView.DefaultBaseline + textView.DefaultLineHeight;
+							return pos + baseline - textView.DefaultBaseline + textView.DefaultLineHeight;
 						case VisualYPosition.TextMiddle:
-							return pos + tl.Baseline - textView.DefaultBaseline + textView.DefaultLineHeight / 2;
+							return pos + baseline - textView.DefaultBaseline + textView.DefaultLineHeight / 2;
 						case VisualYPosition.Baseline:
-							return pos + tl.Baseline;
+							return pos + baseline;
 						default:
 							throw new ArgumentException("Invalid yPositionMode:" + yPositionMode);
 					}
-				} else {
-					pos += tl.Height;
+				} else
+				{
+				    pos += lineHeight;
 				}
 			}
 			throw new ArgumentException("textLine is not a line in this VisualLine");
@@ -406,7 +409,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			const double epsilon = 0.0001;
 			double pos = this.VisualTop;
 			foreach (TextLine tl in TextLines) {
-				pos += tl.Height;
+				pos += Math.Ceiling(tl.Height);
 				if (visualTop + epsilon < pos)
 					return tl;
 			}
@@ -753,7 +756,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			double pos = 0;
 			foreach (TextLine textLine in visualLine.TextLines) {
 				textLine.Draw(drawingContext, new Point(0, pos), InvertAxes.None);
-				pos += textLine.Height;
+				pos += Math.Ceiling(textLine.Height);
 			}
 			this.Height = pos;
 			drawingContext.Close();

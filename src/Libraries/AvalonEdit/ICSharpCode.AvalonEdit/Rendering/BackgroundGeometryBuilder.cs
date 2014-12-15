@@ -214,7 +214,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 						continue;
 					if (segmentStartVCInLine == visualStartCol && i > 0 && segmentStartVC < segmentStartVCInLine && visualLine.TextLines[i - 1].TrailingWhitespaceLength == 0)
 						continue;
-					yield return new Rect(pos, y, 1, line.Height);
+					yield return new Rect(pos, y, 1, Math.Ceiling(line.Height));
 				} else {
 					Rect lastRect = Rect.Empty;
 					if (segmentStartVCInLine <= visualEndCol) {
@@ -224,13 +224,13 @@ namespace ICSharpCode.AvalonEdit.Rendering
 							if (!lastRect.IsEmpty)
 								yield return lastRect;
 							// left>right is possible in RTL languages
-							lastRect = new Rect(Math.Min(left, right), y, Math.Abs(right - left), line.Height);
+							lastRect = new Rect(Math.Min(left, right), y, Math.Abs(right - left), Math.Ceiling(line.Height));
 						}
 					}
 					if (segmentEndVC >= visualLine.VisualLengthWithEndOfLineMarker) {
 						double left = (segmentStartVC > visualLine.VisualLengthWithEndOfLineMarker ? visualLine.GetTextLineVisualXPosition(lastTextLine, segmentStartVC) : line.Width) - scrollOffset.X;
 						double right = ((segmentEndVC == int.MaxValue || line != lastTextLine) ? Math.Max(((IScrollInfo)textView).ExtentWidth, ((IScrollInfo)textView).ViewportWidth) : visualLine.GetTextLineVisualXPosition(lastTextLine, segmentEndVC)) - scrollOffset.X;
-						Rect extendSelection = new Rect(Math.Min(left, right), y, Math.Abs(right - left), line.Height);
+						Rect extendSelection = new Rect(Math.Min(left, right), y, Math.Abs(right - left), Math.Ceiling(line.Height));
 						if (!lastRect.IsEmpty) {
 							if (extendSelection.IntersectsWith(lastRect)) {
 								lastRect.Union(extendSelection);
