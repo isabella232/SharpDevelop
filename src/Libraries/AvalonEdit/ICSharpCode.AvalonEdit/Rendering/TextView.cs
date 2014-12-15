@@ -1553,14 +1553,14 @@ namespace ICSharpCode.AvalonEdit.Rendering
 					new VisualLineTextParagraphProperties { defaultTextRunProperties = textRunProperties },
 					null))
 				{
-					wideSpaceWidth = Math.Max(1, line.WidthIncludingTrailingWhitespace);
-					defaultBaseline = Math.Max(1, line.Baseline);
-					defaultLineHeight = Math.Max(1, line.Height);
+					wideSpaceWidth = Math.Ceiling(Math.Max(1, line.WidthIncludingTrailingWhitespace));
+					defaultBaseline = Math.Ceiling(Math.Max(1, line.Baseline));
+					defaultLineHeight = Math.Ceiling(Math.Max(1, line.Height));
 				}
 			} else {
-				wideSpaceWidth = FontSize / 2;
-				defaultBaseline = FontSize;
-				defaultLineHeight = FontSize + 3;
+				wideSpaceWidth = Math.Ceiling(FontSize / 2);
+				defaultBaseline = Math.Ceiling(FontSize);
+				defaultLineHeight = Math.Ceiling(FontSize + 3);
 			}
 			// Update heightTree.DefaultLineHeight, if a document is loaded.
 			if (heightTree != null)
