@@ -20,6 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 
 namespace ICSharpCode.AvalonEdit
 {
@@ -490,6 +491,29 @@ namespace ICSharpCode.AvalonEdit
 				if (allowToggleOverstrikeMode != value) {
 					allowToggleOverstrikeMode = value;
 					OnPropertyChanged("AllowToggleOverstrikeMode");
+				}
+			}
+		}
+
+		Thickness linePadding = new Thickness(0, 0, 0, 0);
+
+		/// <summary>
+		/// Gets or sets the line padding. This allows for adding padding 
+		/// above or below the rendered text, thus controlling the line height. 
+		/// The padding is applied to all lines and doesn't take font 
+		/// size or scaling into account.
+		/// </summary>
+		/// <remarks>
+		/// Only top and bottom padding is supported for now.
+		/// </remarks>
+		public Thickness LinePadding
+		{
+			get { return linePadding; }
+			set
+			{
+				if(linePadding != value) {
+					linePadding = value;
+					OnPropertyChanged("LinePadding");
 				}
 			}
 		}
