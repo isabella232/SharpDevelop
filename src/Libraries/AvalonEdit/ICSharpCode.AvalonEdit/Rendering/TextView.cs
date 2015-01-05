@@ -1198,7 +1198,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 							}
 							offset += span.Length;
 						}
-						pos.Y += Math.Ceiling(textLine.Height);
+						pos.Y += Math.Ceiling(textLine.Height + Options.LinePadding.Top + Options.LinePadding.Bottom);
 					}
 				}
 			}
@@ -1555,7 +1555,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				{
 					wideSpaceWidth = Math.Ceiling(Math.Max(1, line.WidthIncludingTrailingWhitespace));
 					defaultBaseline = Math.Max(1, line.Baseline);
-					defaultLineHeight = Math.Ceiling(Math.Max(1, line.Height));
+					defaultLineHeight = Math.Ceiling(Math.Max(1, line.Height + Options.LinePadding.Top + Options.LinePadding.Bottom));
 				}
 			} else {
 				wideSpaceWidth = Math.Ceiling(FontSize / 2);

@@ -20,6 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
+using System.Windows;
 
 namespace ICSharpCode.AvalonEdit
 {
@@ -490,6 +491,20 @@ namespace ICSharpCode.AvalonEdit
 				if (allowToggleOverstrikeMode != value) {
 					allowToggleOverstrikeMode = value;
 					OnPropertyChanged("AllowToggleOverstrikeMode");
+				}
+			}
+		}
+
+		Thickness linePadding = new Thickness(0, 0, 0, 0);
+
+		public Thickness LinePadding
+		{
+			get { return linePadding; }
+			set
+			{
+				if(linePadding != value) {
+					linePadding = value;
+					OnPropertyChanged("LinePadding");
 				}
 			}
 		}

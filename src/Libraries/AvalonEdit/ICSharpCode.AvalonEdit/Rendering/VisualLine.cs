@@ -281,7 +281,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			this.textLines = textLines.AsReadOnly();
 			Height = 0;
 			foreach (TextLine line in textLines)
-				Height += Math.Ceiling(line.Height);
+				Height += Math.Ceiling(line.Height + textView.Options.LinePadding.Top + textView.Options.LinePadding.Bottom);
 		}
 		
 		/// <summary>
@@ -355,9 +355,9 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				throw new ArgumentNullException("textLine");
 			double pos = VisualTop;
 			foreach (TextLine tl in TextLines) {
-                var lineHeight = Math.Ceiling(tl.Height);
+				var lineHeight = Math.Ceiling(tl.Height) + textView.Options.LinePadding.Top + textView.Options.LinePadding.Bottom;
 				if (tl == textLine) {
-                    var baseline = tl.Baseline;
+					var baseline = tl.Baseline;
 					switch (yPositionMode) {
 						case VisualYPosition.LineTop:
 							return pos;
@@ -738,7 +738,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		{
 			Debug.Assert(phase == LifetimePhase.Live);
 			if (visual == null)
-				visual = new VisualLineDrawingVisual(this);
+				visual = new VisualLineDrawingVisual(this, textView.Options);
 			return visual;
 		}
 	}
@@ -749,14 +749,14 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		public readonly double Height;
 		internal bool IsAdded;
 		
-		public VisualLineDrawingVisual(VisualLine visualLine)
+		public VisualLineDrawingVisual(VisualLine visualLine, TextEditorOptions options)
 		{
 			this.VisualLine = visualLine;
 			var drawingContext = RenderOpen();
 			double pos = 0;
 			foreach (TextLine textLine in visualLine.TextLines) {
-				textLine.Draw(drawingContext, new Point(0, pos), InvertAxes.None);
-				pos += Math.Ceiling(textLine.Height);
+				textLine.Draw(drawingContext, new Point(0, pos + options.LinePadding.Top), InvertAxes.None);
+				pos += Math.Ceiling(textLine.Height + options.LinePadding.Top + options.LinePadding.Bottom);
 			}
 			this.Height = pos;
 			drawingContext.Close();
